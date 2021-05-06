@@ -9,9 +9,10 @@ class CommentModel {
   String commentByAvt;
   bool isFavorite;
   String timeComment;
+  bool isCreator;
 
   CommentModel(
-      this.commentContent, this.commentBy, this.commentByAvt, this.isFavorite, this.timeComment);
+      this.commentContent, this.commentBy, this.commentByAvt, this.isFavorite, this.timeComment, this.isCreator);
 
   factory CommentModel.fromJson(Map<String, dynamic> json) =>
       _$CommentModelFromJson(json);

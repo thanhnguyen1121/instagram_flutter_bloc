@@ -11,13 +11,13 @@ class CommentPostBloc extends Cubit<CommentPostState> {
   void init(PostModel postModel) {
     List<CommentModel> listCommnet = [
       CommentModel(
-          "commentContent", postModel.author, postModel.authorAvt, false, "1d")
+          "commentContent", postModel.author, postModel.authorAvt, false, "1d",true)
     ];
 
     int count = Random().nextInt(30);
     for (int i = 0; i < count; i++) {
       listCommnet.add(CommentModel("commentContent$i", postModel.author + "$i",
-          postModel.authorAvt, false, "${i}d"));
+          postModel.authorAvt, false, "${i}d", false));
     }
     emit(CommentPostStateData(listCommnet));
   }

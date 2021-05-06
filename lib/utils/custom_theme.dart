@@ -9,11 +9,13 @@ class CustomTheme with ChangeNotifier {
   static ThemeData get light => ThemeData.light().copyWith(
       appBarTheme: ThemeData().appBarTheme.copyWith(
           backgroundColor: Colors.white,
-          actionsIconTheme: IconThemeData().copyWith(color: Colors.black),
+          iconTheme: IconThemeData().copyWith(color: Colors.black),
           titleTextStyle: GoogleFonts.pacifico(
             textStyle: TextStyle(color: Colors.black),
           ),
-        elevation: 0
+        elevation: 0,
+
+
       ),
       textTheme: TextTheme().copyWith(
         caption: TextStyle(color: Colors.black),

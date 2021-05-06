@@ -13,6 +13,7 @@ CommentModel _$CommentModelFromJson(Map<String, dynamic> json) {
     json['commentByAvt'] as String,
     json['isFavorite'] as bool,
     json['timeComment'] as String,
+    json['isCreator'] as bool,
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$CommentModelToJson(CommentModel instance) =>
       'commentByAvt': instance.commentByAvt,
       'isFavorite': instance.isFavorite,
       'timeComment': instance.timeComment,
+      'isCreator': instance.isCreator,
     };

@@ -14,13 +14,12 @@ class CustomTheme with ChangeNotifier {
             textStyle: TextStyle(color: Colors.black),
           ),
         elevation: 0,
-
-
       ),
       textTheme: TextTheme().copyWith(
         caption: TextStyle(color: Colors.black),
         bodyText1: TextStyle(color: Colors.black),
         bodyText2: TextStyle(color: Colors.grey, fontSize: 12),
+        headline6: TextStyle(color: Colors.black)
       )
   );
 

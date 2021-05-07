@@ -21,8 +21,38 @@ class PostWidget extends StatefulWidget {
   _PostWidgetState createState() => _PostWidgetState();
 }
 
-class _PostWidgetState extends State<PostWidget> {
+class _PostWidgetState extends State<PostWidget>
+    with SingleTickerProviderStateMixin {
   static const TAG = 'PostWidget';
+  AnimationController? controller;
+  Animation<double>? animation;
+
+  var _size = 30.0;
+  bool _large = false;
+
+  void _updateSize() {
+    setState(() {
+      _size = _large ? 30.0 : 0.0;
+      _large = !_large;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller =
+        new AnimationController(duration: Duration(seconds: 3), vsync: this)
+          ..addListener(() => setState(() {}));
+    animation = Tween(begin: 0.0, end: 30.0).animate(controller!);
+    // controller!.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +86,17 @@ class _PostWidgetState extends State<PostWidget> {
           ),
         ),
         Image.asset(widget.postModel.postImg),
+        Column(),
+        // Transform.translate(
+        //   child: Transform.translate(
+        //       offset: Offset(0.0, animation!.value),
+        //       child: Image.asset(
+        //         'lib/assets/images/avt_1.jpeg',
+        //         width: 30,
+        //         height: 30,
+        //       )),
+        //   offset: Offset(0.0, -animation!.value),
+        // ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -82,14 +123,19 @@ class _PostWidgetState extends State<PostWidget> {
                         child: FractionalTranslation(
                             translation: Offset(0.2, -0.15),
                             child: Icon(Icons.send))),
-                    onPressed: () {})
+                    onPressed: () {
+                      widget.onClickShare();
+                    })
               ],
             ),
             IconButton(
                 icon: Transform.rotate(
                     angle: -1.6,
                     child: Icon(Icons.label_important_outline_sharp)),
-                onPressed: () {})
+                onPressed: () {
+                  // _updateSize();
+                  controller!.forward();
+                })
           ],
         ),
         Padding(

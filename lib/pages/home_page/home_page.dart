@@ -5,6 +5,7 @@ import 'package:flutter_bloc_instagram/data/model/post_model.dart';
 import 'package:flutter_bloc_instagram/data/model/story_model.dart';
 import 'package:flutter_bloc_instagram/pages/home_page/home_state.dart';
 import 'package:flutter_bloc_instagram/pages/home_page/post_data_source.dart';
+import 'package:flutter_bloc_instagram/widgets/home_bottom_sheet_widget.dart';
 import 'package:flutter_bloc_instagram/widgets/loading_widget.dart';
 import 'package:flutter_bloc_instagram/widgets/post_widget.dart';
 import 'package:flutter_bloc_instagram/widgets/story_widget.dart';
@@ -32,47 +33,18 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    var _content = (List<StoryModel> storyModels, List<PostModel> PostModels) {
-      // return ListView(
-      //   children: [
-      //     Container(
-      //       width: double.infinity,
-      //       height: 105,
-      //       child: ListView.builder(
-      //           scrollDirection: Axis.horizontal,
-      //           itemCount: storyModels.length,
-      //           itemBuilder: (context, index) {
-      //             return index == 0
-      //                 ? YourStoryWidget(storyModels[index])
-      //                 : StoryWidget(storyModels[index]);
-      //             // return StoryWidget(storyModels[index]);
-      //           }),
-      //     ),
-      //     Divider(
-      //       thickness: 0.5,
-      //       color: Colors.grey[300],
-      //     ),
-      //     // ListView.builder(
-      //     //     shrinkWrap: true,
-      //     //     physics: NeverScrollableScrollPhysics(),
-      //     //     itemCount: PostModels.length,
-      //     //     itemBuilder: (context, index) {
-      //     //       return PostWidget(PostModels[index]);
-      //     //     })
-      //     paging.ListView<PostModel>(
-      //       shrinkWrap: true,
-      //       physics: NeverScrollableScrollPhysics(),
-      //       pageDataSource: PostDataSource(PostModels),
-      //       itemBuilder: (context, data, index) {
-      //         return PostWidget(data);
-      //       },
-      //     )
-      //   ],
-      // );
+    void _showSheet() {
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) {
+            return HomeBottomSheetWidget([]);
+          });
+    }
 
+    var _content = (List<StoryModel> storyModels, List<PostModel> PostModels) {
       return ListView.builder(
-          // shrinkWrap: true,
-          // physics: NeverScrollableScrollPhysics(),
           itemCount: PostModels.length,
           itemBuilder: (context, index) {
             return index == 0
@@ -86,7 +58,6 @@ class _HomePageState extends State<HomePage>
                           return index == 0
                               ? YourStoryWidget(storyModels[index])
                               : StoryWidget(storyModels[index]);
-                          // return StoryWidget(storyModels[index]);
                         }))
                 : PostWidget(
                     PostModels[index],
@@ -95,6 +66,9 @@ class _HomePageState extends State<HomePage>
                     },
                     onClickComment: () {
                       _homeBloc.intentCommentPage(context, PostModels[index]);
+                    },
+                    onClickShare: () {
+                      _showSheet();
                     },
                   );
           });
